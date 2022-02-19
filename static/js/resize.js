@@ -203,7 +203,10 @@ export function resize_bottom_whitespace(h) {
 export function resize_stream_filters_container(h) {
     h = narrow_window ? left_userlist_get_new_heights() : get_new_heights();
     resize_bottom_whitespace(h);
-    $("#stream-filters-container").css("max-height", h.stream_filters_max_height);
+    let height = h.stream_filters_max_height;
+    height = height - $("#private_messages").safeOuterHeight(true);
+    $("#stream-filters-container").css("max-height", height);
+    $("#private_messages_container").css("max-height", h.stream_filters_max_height - 65);
 }
 
 export function resize_sidebars() {
@@ -240,7 +243,9 @@ export function resize_sidebars() {
     const h = narrow_window ? left_userlist_get_new_heights() : get_new_heights();
 
     $("#buddy_list_wrapper").css("max-height", h.buddy_list_wrapper_max_height);
-    $("#stream-filters-container").css("max-height", h.stream_filters_max_height);
+    let height = h.stream_filters_max_height;
+    height = height - $("#private_messages").safeOuterHeight(true);
+    $("#stream-filters-container").css("max-height", height);
 
     return h;
 }
